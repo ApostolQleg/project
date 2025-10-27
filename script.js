@@ -1,5 +1,6 @@
 const startButton = document.getElementById("startButton");
 const player = document.getElementById("player");
+const background = document.getElementById("background");
 player.style.display = "none";
 
 startButton.addEventListener("click", () => {
@@ -14,6 +15,8 @@ const keysPressed = {};
 const step = 3;
 let x = window.innerWidth / 2; // Centered x position
 let y = window.innerHeight / 2; // Centered y position
+background.style.width = Math.ceil(background.offsetWidth / 512) * 512 * 2 + "px";
+background.style.height = Math.ceil(background.offsetHeight / 512) * 512 * 2 + "px";
 
 document.addEventListener("keydown", (event) => {
 	keysPressed[event.code] = true;
@@ -41,17 +44,17 @@ function movement() {
 		background.style.top = y + "px";
 		background.style.left = x + "px";
 
-		if (x > window.innerWidth) {
+		if (x > background.offsetWidth / 2) {
 			x = 0;
 		}
 		if (x < 0) {
-			x = window.innerWidth;
+			x = background.offsetWidth / 2;
 		}
-		if (y > window.innerHeight) {
+		if (y > background.offsetHeight / 2) {
 			y = 0;
 		}
 		if (y < 0) {
-			y = window.innerHeight;
+			y = background.offsetHeight / 2;
 		}
 	}
 	requestAnimationFrame(movement);
