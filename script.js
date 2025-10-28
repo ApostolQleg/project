@@ -18,7 +18,7 @@ startButton.addEventListener("click", () => {
 
 // Movement logic (WASD)
 const keysPressed = {};
-const step = 3;
+const step = 1;
 let x = window.innerWidth / 2; // Centered x position
 let y = window.innerHeight / 2; // Centered y position
 background.style.width = Math.ceil(background.offsetWidth / 512) * 512 * 4 + "px";
@@ -32,21 +32,27 @@ document.addEventListener("keyup", (event) => {
 	keysPressed[event.code] = false;
 });
 
+function directionalMovement(speedMultiplier = 1) {
+	if (keysPressed["KeyW"]) {
+		y += step * speedMultiplier;
+	}
+	if (keysPressed["KeyA"]) {
+		x += step * speedMultiplier;
+	}
+	if (keysPressed["KeyS"]) {
+		y -= step * speedMultiplier;
+	}
+	if (keysPressed["KeyD"]) {
+		x -= step * speedMultiplier;
+	}
+}
+
 function movement() {
 	if (pauseButton.style.display === "block") {
-		if (keysPressed["KeyW"]) {
-			y += step;
+		if (keysPressed["ShiftLeft"] || keysPressed["ShiftRight"]) {
+			directionalMovement(2);
 		}
-		if (keysPressed["KeyA"]) {
-			x += step;
-		}
-		if (keysPressed["KeyS"]) {
-			y -= step;
-		}
-		if (keysPressed["KeyD"]) {
-			x -= step;
-		}
-
+		directionalMovement();
 		background.style.top = y + "px";
 		background.style.left = x + "px";
 
@@ -64,6 +70,7 @@ function movement() {
 			y = background.offsetHeight / 2;
 		}
 	}
+
 	requestAnimationFrame(movement);
 }
 requestAnimationFrame(movement);
