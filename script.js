@@ -4,6 +4,8 @@ const background = document.getElementById("background");
 const pauseButton = document.getElementById("pauseButton");
 const resumeButton = document.getElementById("resumeButton");
 const menuButton = document.getElementById("menuButton");
+const staminaBar = document.getElementById("staminaBar");
+const stamina = document.getElementById("stamina");
 
 startButton.style.display = "block";
 // block scrolling
@@ -18,7 +20,7 @@ startButton.addEventListener("click", () => {
 
 // Movement logic (WASD)
 const keysPressed = {};
-const step = 1;
+const step = 3;
 let x = window.innerWidth / 2; // Centered x position
 let y = window.innerHeight / 2; // Centered y position
 background.style.width = Math.ceil(background.offsetWidth / 512) * 512 * 4 + "px";
@@ -51,8 +53,7 @@ function movement() {
 	if (pauseButton.style.display === "block") {
 		if (keysPressed["ShiftLeft"] || keysPressed["ShiftRight"]) {
 			directionalMovement(2);
-		}
-		directionalMovement();
+		} else directionalMovement();
 		background.style.top = y + "px";
 		background.style.left = x + "px";
 
@@ -102,3 +103,15 @@ menuButton.addEventListener("click", () => {
 		startButton.style.display = "block";
 	}
 });
+
+// Stamina bar rendering and logic
+
+function staminaLogic() {
+	if (pauseButton.style.display === "block") {
+		if (keysPressed["ShiftLeft"] || keysPressed["ShiftRight"]) {
+			staminaBar.style.width = 1 + "%";
+		} else if (stamina < 100) {
+			staminaBar.style.width = -1 + "%";
+		}
+	}
+}
