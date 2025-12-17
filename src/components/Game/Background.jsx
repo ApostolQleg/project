@@ -22,16 +22,24 @@ export default function Background() {
 		};
 
 		const gameLoop = () => {
-			const step = 10;
+			const step = 5;
+			let dx = 0;
+			let dy = 0;
+			if (keysPressedRef.current["d"]) dx -= 1;
+			if (keysPressedRef.current["a"]) dx += 1;
+			if (keysPressedRef.current["s"]) dy -= 1;
+			if (keysPressedRef.current["w"]) dy += 1;
+
+			// Normalize if moving diagonally
+			if (dx !== 0 || dy !== 0) {
+				const length = Math.sqrt(dx * dx + dy * dy);
+				dx = (dx / length) * step;
+				dy = (dy / length) * step;
+			}
+
 			offsetRef.current = {
-				x:
-					offsetRef.current.x -
-					(keysPressedRef.current["d"] ? step : 0) +
-					(keysPressedRef.current["a"] ? step : 0),
-				y:
-					offsetRef.current.y -
-					(keysPressedRef.current["s"] ? step : 0) +
-					(keysPressedRef.current["w"] ? step : 0),
+				x: offsetRef.current.x + dx,
+				y: offsetRef.current.y + dy,
 			};
 			setOffset(offsetRef.current);
 			requestAnimationFrame(gameLoop);
