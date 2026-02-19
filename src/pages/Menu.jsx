@@ -2,7 +2,7 @@ import Button from "../components/Button.jsx";
 
 export default function Menu() {
 	return (
-		<div className="flex flex-col flex-1 justify-center items-center">
+		<div className="flex flex-col flex-1 items-center justify-center">
 			<Button to="/game" onClick={() => {}}>
 				Start
 			</Button>

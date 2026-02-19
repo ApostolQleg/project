@@ -5,7 +5,7 @@ import NotFound from "./pages/NotFound.jsx";
 
 export default function App() {
 	return (
-		<div className="min-h-screen bg-gray-900 text-gray-300 flex flex-col flex-1">
+		<div className="flex flex-col min-h-screen">
 			<Routes>
 				<Route path="/" element={<Menu />} />
 				<Route path="/game" element={<Game />} />

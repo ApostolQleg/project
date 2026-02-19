@@ -1,116 +1,30 @@
+import { useState } from "react";
 import Player from "../components/Game/Player";
+import Button from "../components/Button";
 import Background from "../components/Game/Background";
+import pause from "../assets/pause.png";
 
 export default function Game() {
+	const [isPaused, setIsPaused] = useState(false);
+
 	return (
 		<div>
 			<Background />
+			<Button
+				className="fixed top-10 right-10 aspect-square min-w-10"
+				onClick={() => {
+					setIsPaused(true);
+					console.log("Game Paused");
+				}}
+			>
+				<img src={pause} alt="Pause" className="size-8" />
+			</Button>
 			<Player />
+			{isPaused && (
+				<div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-10">
+					<h1 className="text-4xl text-white">Game Paused</h1>
+				</div>
+			)}
 		</div>
 	);
 }
-
-// const startButton = document.getElementById("startButton");
-// const player = document.getElementById("player");
-// const background = document.getElementById("background");
-// const pauseButton = document.getElementById("pauseButton");
-// const resumeButton = document.getElementById("resumeButton");
-// const menuButton = document.getElementById("menuButton");
-
-// startButton.style.display = "block";
-// // block scrolling
-// document.body.style.cssText = `overflow: hidden`;
-
-// // Start button logic
-// startButton.addEventListener("click", () => {
-// 	startButton.style.display = "none";
-// 	player.style.display = "block";
-// 	pauseButton.style.display = "block";
-// });
-
-// // Movement logic (WASD)
-// const keysPressed = {};
-// const step = 1;
-// let x = window.innerWidth / 2; // Centered x position
-// let y = window.innerHeight / 2; // Centered y position
-// background.style.width = Math.ceil(background.offsetWidth / 512) * 512 * 4 + "px";
-// background.style.height = Math.ceil(background.offsetHeight / 512) * 512 * 4 + "px";
-
-// document.addEventListener("keydown", (event) => {
-// 	keysPressed[event.code] = true;
-// });
-
-// document.addEventListener("keyup", (event) => {
-// 	keysPressed[event.code] = false;
-// });
-
-// function directionalMovement(speedMultiplier = 1) {
-// 	if (keysPressed["KeyW"]) {
-// 		y += step * speedMultiplier;
-// 	}
-// 	if (keysPressed["KeyA"]) {
-// 		x += step * speedMultiplier;
-// 	}
-// 	if (keysPressed["KeyS"]) {
-// 		y -= step * speedMultiplier;
-// 	}
-// 	if (keysPressed["KeyD"]) {
-// 		x -= step * speedMultiplier;
-// 	}
-// }
-
-// function movement() {
-// 	if (pauseButton.style.display === "block") {
-// 		if (keysPressed["ShiftLeft"] || keysPressed["ShiftRight"]) {
-// 			directionalMovement(2);
-// 		}
-// 		directionalMovement();
-// 		background.style.top = y + "px";
-// 		background.style.left = x + "px";
-
-// 		// Render wrapping
-// 		if (x > background.offsetWidth / 2) {
-// 			x = 0;
-// 		}
-// 		if (x < 0) {
-// 			x = background.offsetWidth / 2;
-// 		}
-// 		if (y > background.offsetHeight / 2) {
-// 			y = 0;
-// 		}
-// 		if (y < 0) {
-// 			y = background.offsetHeight / 2;
-// 		}
-// 	}
-
-// 	requestAnimationFrame(movement);
-// }
-// requestAnimationFrame(movement);
-
-// // Pause button logic
-// pauseButton.addEventListener("click", () => {
-// 	if (pauseButton.style.display === "block") {
-// 		pauseButton.style.display = "none";
-// 		resumeButton.style.display = "block";
-// 		menuButton.style.display = "block";
-// 	}
-// });
-
-// // Resume button logic
-// resumeButton.addEventListener("click", () => {
-// 	if (resumeButton.style.display === "block") {
-// 		resumeButton.style.display = "none";
-// 		menuButton.style.display = "none";
-// 		pauseButton.style.display = "block";
-// 	}
-// });
-
-// // Menu button logic
-// menuButton.addEventListener("click", () => {
-// 	if (menuButton.style.display === "block") {
-// 		menuButton.style.display = "none";
-// 		resumeButton.style.display = "none";
-// 		player.style.display = "none";
-// 		startButton.style.display = "block";
-// 	}
-// });

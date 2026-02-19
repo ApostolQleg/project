@@ -58,10 +58,9 @@ export default function Background() {
 
 	return (
 		<div
-			className="fixed inset-0 z-0"
+			className="fixed inset-0 -z-10"
 			style={{
 				backgroundImage: `url(${bgimg})`,
-				backgroundRepeat: "repeat",
 				backgroundPosition: `${offset.x}px ${offset.y}px`,
 			}}
 		/>
